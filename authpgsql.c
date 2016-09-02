@@ -89,7 +89,7 @@ static int auth_pgsql_login(const char *service, char *authdata,
 
 	memset(&aa, 0, sizeof(aa));
 
-	/*aa.sysusername=user;*/
+	aa.sysusername=user;
 	aa.sysuserid= &authinfo->uid;
 	aa.sysgroupid= authinfo->gid;
 	aa.homedir=authinfo->home;
