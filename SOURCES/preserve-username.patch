@@ -1,0 +1,11 @@
+diff -Nur courier-authlib-0.68.0-orig/authpgsqllib.cpp courier-authlib-0.68.0/authpgsqllib.cpp
+--- courier-authlib-0.68.0-orig/authpgsqllib.cpp	2016-05-07 11:50:51.000000000 -0400
++++ courier-authlib-0.68.0/authpgsqllib.cpp	2018-05-04 15:25:26.020446169 -0400
+@@ -816,6 +816,7 @@
+ 
+ 	aa.sysuserid= &uiret.uid;
+ 	aa.sysgroupid= uiret.gid;
++        aa.sysusername=user;
+ 	aa.homedir=uiret.home.c_str();
+ 	aa.maildir=uiret.maildir.empty() ? 0:uiret.maildir.c_str();
+ 	aa.address=uiret.username.c_str();
