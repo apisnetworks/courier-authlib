@@ -280,7 +280,7 @@ done
 %endif
 
 %post
-%{_libexecdir}/courier-authlib/sysconftool %{_sysconfdir}/authlib/*.dist >/dev/null
+%{_libexecdir}/courier-authlib/sysconftool -n %{_sysconfdir}/authlib/*.dist >/dev/null
 %if %using_systemd
 if test -f /etc/init.d/courier-authlib
 then
