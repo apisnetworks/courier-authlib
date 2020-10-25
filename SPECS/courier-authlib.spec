@@ -17,7 +17,7 @@
 ################################################################################
 
 Name:           courier-authlib
-Version:        0.68.0
+Version:        0.71.0
 Release:        1%{?dist}%{?courier_release}
 Summary:        Courier authentication library
 
@@ -28,12 +28,11 @@ URL:            http://www.courier-mta.org
 ################################################################################
 
 Source:         http://dl.sourceforge.net/courier/%{name}-%{version}.tar.bz2
-Patch0:					preserve-username.patch
-
+Patch0:		preserve-username.patch
+Patch1:		subsys-removal.patch 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 ################################################################################
-
 BuildRequires:      libtool
 BuildRequires:      openldap-devel
 BuildRequires:      mysql-devel zlib-devel sqlite-devel
@@ -168,9 +167,10 @@ program, then communicates through messages on stdin and stdout.
 %prep
 %setup -q
 %patch0 -p1
-env PATH=/usr/bin:$PATH CFLAGS="%{pglib}" CXXFLAGS="%{pglib}" %configure -C --with-redhat
+%patch1 -p1
 
 %build
+env PATH=/usr/bin:$PATH CFLAGS="%{pglib}" CXXFLAGS="%{pglib}" %configure -C --with-redhat
 %{__make} -s %{_smp_mflags}
 
 %install
