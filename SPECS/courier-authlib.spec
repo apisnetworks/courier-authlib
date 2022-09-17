@@ -17,8 +17,8 @@
 ################################################################################
 
 Name:           courier-authlib
-Version:        0.71.0
-Release:        1%{?dist}%{?courier_release}
+Version:        0.71.5
+Release:        2%{?dist}%{?courier_release}
 Summary:        Courier authentication library
 
 Group:          System Environment/Daemons
@@ -269,7 +269,9 @@ do
 done
 %if %using_systemd
 %{__mkdir_p} $RPM_BUILD_ROOT%{_datadir}
-%{__install} -m 555 courier-authlib.sysvinit $RPM_BUILD_ROOT%{_datadir}
+# Hardcoded path
+sed -e 's!/usr/share!'%{_libexecdir}'!g' courier-authlib.sysvinit
+%{__install} -m 555 courier-authlib.sysvinit $RPM_BUILD_ROOT%{_libexecdir}/courier-authlib
 
 %{__mkdir_p} $RPM_BUILD_ROOT/lib/systemd/system
 %{__install} -m 644 courier-authlib.service $RPM_BUILD_ROOT/lib/systemd/system
@@ -324,7 +326,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc NEWS COPYING* AUTHORS ChangeLog
 %if %using_systemd
 /lib/systemd/system/*
-%attr(755, bin, bin) %{_datadir}/courier-authlib.sysvinit
+%attr(755, bin, bin) %{_libexecdir}/courier-authlib/courier-authlib.sysvinit
 %else
 /etc/rc.d/init.d/*
 %endif

@@ -6,4 +6,4 @@ if [[ ${#MATCHES[@]} -gt 0 ]] ; then
   PGSQL=${MATCHES[$CNT-1]}
   PG_VERSION=${PGSQL##*-}
 fi
-rpmbuild --define 'dist .apnscp' --define "pg_version $PG_VERSION"  --define "_topdir `pwd`" -ba SPECS/courier-authlib.spec
+PG_CONFIG=${PGSQL}/bin/pg_config rpmbuild --define 'dist .apnscp' --define "pg_version $PG_VERSION"  --define "_topdir `pwd`" -ba SPECS/courier-authlib.spec
